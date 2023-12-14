@@ -1,11 +1,5 @@
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Хост: localhost:8889
--- Время создания: Май 01 2023 г., 18:32
--- Версия сервера: 5.7.34
--- Версия PHP: 8.0.8
+ 
+ 
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,13 +12,12 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- База данных: `dance_club`
+ 
 --
 
 -- --------------------------------------------------------
 
---
--- Структура таблицы `club`
+ 
 --
 
 CREATE TABLE `club` (
@@ -35,7 +28,7 @@ CREATE TABLE `club` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `club`
+ 
 --
 
 INSERT INTO `club` (`id`, `title`, `city`, `coach_id`) VALUES
@@ -48,7 +41,7 @@ INSERT INTO `club` (`id`, `title`, `city`, `coach_id`) VALUES
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `coach`
+ 
 --
 
 CREATE TABLE `coach` (
@@ -61,8 +54,7 @@ CREATE TABLE `coach` (
   `city` varchar(200) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `coach`
+ 
 --
 
 INSERT INTO `coach` (`id`, `full_name`, `email`, `password`, `club_name`, `EDRPOU`, `city`) VALUES
@@ -73,7 +65,7 @@ INSERT INTO `coach` (`id`, `full_name`, `email`, `password`, `club_name`, `EDRPO
 (5, 'William Lee', 'wlee@gmail.com', '$2y$10$a9z00TljccwTHHHXeNuxceCfjCk8dBSGCy8HhBP4pspOvOLf35xja', 'Step Up Dance', '9876543210', 'Kyiv');
 
 --
--- Триггеры `coach`
+ 
 --
 DELIMITER $$
 CREATE TRIGGER `insert_into_club` AFTER INSERT ON `coach` FOR EACH ROW BEGIN
@@ -86,7 +78,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `competition`
+ 
 --
 
 CREATE TABLE `competition` (
@@ -99,7 +91,7 @@ CREATE TABLE `competition` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `competition`
+
 --
 
 INSERT INTO `competition` (`id`, `title`, `date`, `location`, `description`, `organizator_id`) VALUES
@@ -112,7 +104,7 @@ INSERT INTO `competition` (`id`, `title`, `date`, `location`, `description`, `or
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `couples`
+ 
 --
 
 CREATE TABLE `couples` (
@@ -124,7 +116,7 @@ CREATE TABLE `couples` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `couples`
+ 
 --
 
 INSERT INTO `couples` (`id`, `dancer_id1`, `dancer_id2`, `age_category`, `class`) VALUES
@@ -134,9 +126,7 @@ INSERT INTO `couples` (`id`, `dancer_id1`, `dancer_id2`, `age_category`, `class`
 
 -- --------------------------------------------------------
 
---
--- Структура таблицы `dancer`
---
+ 
 
 CREATE TABLE `dancer` (
   `id` int(11) NOT NULL,
@@ -148,8 +138,7 @@ CREATE TABLE `dancer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `dancer`
---
+ 
 
 INSERT INTO `dancer` (`id`, `first_name`, `second_name`, `age_category`, `class`, `coach_id`) VALUES
 (1, 'Sarah', 'Taylor', 'Ювенали 1', 'Hobby', 1),
@@ -162,7 +151,7 @@ INSERT INTO `dancer` (`id`, `first_name`, `second_name`, `age_category`, `class`
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `organizator`
+ 
 --
 
 CREATE TABLE `organizator` (
@@ -174,17 +163,14 @@ CREATE TABLE `organizator` (
   `EDRPOU` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Дамп данных таблицы `organizator`
---
+-- 
 
 INSERT INTO `organizator` (`id`, `full_name`, `email`, `password`, `company_name`, `EDRPOU`) VALUES
 (1, 'Mark Johnson', 'markj@gmail.com', '$2y$10$QhLzodS925Yjtje0.9LD.OM6a2FbQggkiVGMqRLvIBehbpvmDt3OG', 'ABC Events', '1357902468');
 
 -- --------------------------------------------------------
 
---
--- Структура таблицы `results`
+ 
 --
 
 CREATE TABLE `results` (
@@ -195,7 +181,7 @@ CREATE TABLE `results` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Дамп данных таблицы `results`
+ 
 --
 
 INSERT INTO `results` (`competition_id`, `couples_id`, `win_place`, `couples_number`) VALUES
@@ -216,32 +202,31 @@ INSERT INTO `results` (`competition_id`, `couples_id`, `win_place`, `couples_num
 (5, 3, 4, 16);
 
 --
--- Индексы сохранённых таблиц
+ 
 --
 
---
--- Индексы таблицы `club`
+ 
 --
 ALTER TABLE `club`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_dance_club_coach1` (`coach_id`);
 
 --
--- Индексы таблицы `coach`
+ 
 --
 ALTER TABLE `coach`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
 --
--- Индексы таблицы `competition`
+ 
 --
 ALTER TABLE `competition`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_competition_organizator1` (`organizator_id`);
 
 --
--- Индексы таблицы `couples`
+ 
 --
 ALTER TABLE `couples`
   ADD PRIMARY KEY (`id`),
@@ -249,44 +234,42 @@ ALTER TABLE `couples`
   ADD KEY `fk_competition_has_couples_dancer2` (`dancer_id2`);
 
 --
--- Индексы таблицы `dancer`
+ 
 --
 ALTER TABLE `dancer`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_dancer_coach` (`coach_id`);
 
 --
--- Индексы таблицы `organizator`
+ 
 --
 ALTER TABLE `organizator`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email_UNIQUE` (`email`);
 
---
--- Индексы таблицы `results`
+ 
 --
 ALTER TABLE `results`
   ADD PRIMARY KEY (`competition_id`,`couples_id`),
   ADD KEY `fk_competition_has_couples1_couples1` (`couples_id`);
 
 --
--- AUTO_INCREMENT для сохранённых таблиц
---
+ 
 
 --
--- AUTO_INCREMENT для таблицы `club`
+ 
 --
 ALTER TABLE `club`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT для таблицы `coach`
+ 
 --
 ALTER TABLE `coach`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT для таблицы `competition`
+ 
 --
 ALTER TABLE `competition`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
@@ -298,48 +281,47 @@ ALTER TABLE `couples`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT для таблицы `dancer`
+ 
 --
 ALTER TABLE `dancer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT для таблицы `organizator`
+ 
 --
 ALTER TABLE `organizator`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- Ограничения внешнего ключа сохраненных таблиц
+
 --
 
 --
--- Ограничения внешнего ключа таблицы `club`
+ 
 --
 ALTER TABLE `club`
   ADD CONSTRAINT `fk_dance_club_coach1` FOREIGN KEY (`coach_id`) REFERENCES `coach` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `competition`
+ 
 --
 ALTER TABLE `competition`
   ADD CONSTRAINT `fk_competition_organizator1` FOREIGN KEY (`organizator_id`) REFERENCES `organizator` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
---
--- Ограничения внешнего ключа таблицы `couples`
+ 
 --
 ALTER TABLE `couples`
   ADD CONSTRAINT `fk_competition_has_couples_dancer1` FOREIGN KEY (`dancer_id1`) REFERENCES `dancer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_competition_has_couples_dancer2` FOREIGN KEY (`dancer_id2`) REFERENCES `dancer` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `dancer`
+ 
 --
 ALTER TABLE `dancer`
   ADD CONSTRAINT `fk_dancer_coach` FOREIGN KEY (`coach_id`) REFERENCES `coach` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Ограничения внешнего ключа таблицы `results`
+ 
 --
 ALTER TABLE `results`
   ADD CONSTRAINT `fk_competition_has_couples1_competition1` FOREIGN KEY (`competition_id`) REFERENCES `competition` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
